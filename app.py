@@ -93,7 +93,7 @@ with col1:
 with col2:
     rev_by_product = won.groupby("product_line")["amount"].sum().reset_index()
     fig2 = px.pie(rev_by_product, names="product_line", values="amount",
-                  title="Revenus par Produit", hole=0.4)
+                title="Revenus par Produit", hole=0.4)
     st.plotly_chart(fig2, use_container_width=True)
 
 col3, col4 = st.columns(2)
@@ -104,15 +104,15 @@ with col3:
     monthly["month"] = pd.to_datetime(monthly["close_date"]).dt.to_period("M").astype(str)
     monthly_rev = monthly.groupby("month")["amount"].sum().reset_index()
     fig3 = px.bar(monthly_rev, x="month", y="amount",
-                  title="Revenus Mensuels (Closed Won)", color_discrete_sequence=["#2ecc71"])
+                title="Revenus Mensuels (Closed Won)", color_discrete_sequence=["#2ecc71"])
     st.plotly_chart(fig3, use_container_width=True)
 
 with col4:
     by_owner = won.groupby("owner").agg(revenue=("amount","sum"), deals=("opp_id","count")).reset_index()
     fig4 = px.bar(by_owner.sort_values("revenue", ascending=True),
-                  x="revenue", y="owner", orientation="h",
-                  title="Performance par Commercial", color="revenue",
-                  color_continuous_scale="Teal")
+                x="revenue", y="owner", orientation="h",
+                title="Performance par Commercial", color="revenue",
+                color_continuous_scale="Teal")
     st.plotly_chart(fig4, use_container_width=True)
 
 # ── TABLE ─────────────────────────────────────────────────────────────────────
